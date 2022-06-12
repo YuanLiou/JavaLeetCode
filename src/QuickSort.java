@@ -1,9 +1,9 @@
 import utils.ArrayUtils;
+import utils.IntegerUtils;
 
 public class QuickSort {
 
     public static void main(String[] args) {
-//        var testArray = new int[]{ 6, 48 };
         var testArray = ArrayUtils.generateArray(100, 10);
         System.out.print("original array: ");
         ArrayUtils.printArray(testArray);
@@ -63,7 +63,13 @@ public class QuickSort {
     }
 
     private static int partition(int[] numberArray, int leftBound, int rightBound) {
-        int pivot = numberArray[rightBound];
+        // Optimize with choosing number randomly as pivot
+        //  to prevent worst case of O(n^2) result.
+        int pivotIndex = IntegerUtils.getRandomNumber(leftBound, rightBound);
+        int pivot = numberArray[pivotIndex];
+        // move to the rightBound to fit our origin algorithm.
+        ArrayUtils.swap(numberArray, pivotIndex, rightBound);
+
         int leftPointer = leftBound;
         int rightPointer = rightBound;
 
