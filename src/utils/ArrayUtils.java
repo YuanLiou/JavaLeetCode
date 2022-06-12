@@ -19,10 +19,10 @@ public class ArrayUtils {
         }
 
         Random random = new Random();
-        int arraySize = 10;
+        int arraySize = size;
         int[] resultArray = new int[arraySize];
         for (int i = 0; i < arraySize; i++) {
-            resultArray[i] = random.nextInt(100);
+            resultArray[i] = random.nextInt(numberMaxBound);
         }
         return resultArray;
     }
