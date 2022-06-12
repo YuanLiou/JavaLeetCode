@@ -26,4 +26,10 @@ public class ArrayUtils {
         }
         return resultArray;
     }
+
+    public static void swap(int[] numberArray, int leftIndex, int rightIndex) {
+        int temp = numberArray[leftIndex];
+        numberArray[leftIndex] = numberArray[rightIndex];
+        numberArray[rightIndex] = temp;
+    }
 }
