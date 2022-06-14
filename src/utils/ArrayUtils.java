@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.List;
 import java.util.Random;
 
 public class ArrayUtils {
@@ -7,6 +8,15 @@ public class ArrayUtils {
         for (int i = 0; i < array.length; i++) {
             String numberResult = Integer.toString(array[i]);
             if (i != array.length - 1) {
+                numberResult += ", ";
+            }
+            System.out.print(numberResult);
+        }
+    }
+    public static void printStringList(List<String> stringList) {
+        for (int i = 0; i < stringList.size(); i++) {
+            String numberResult = stringList.get(i);
+            if (i != stringList.size() - 1) {
                 numberResult += ", ";
             }
             System.out.print(numberResult);
