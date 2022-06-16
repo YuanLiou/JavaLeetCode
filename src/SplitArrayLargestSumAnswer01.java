@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class SplitArrayLargestSum {
+public class SplitArrayLargestSumAnswer01 {
     public static void main(String[] args) {
         int[] testArray = new int[]{ 7, 2, 5, 10, 8 };
         var result = splitArrayV1(testArray, 2);
