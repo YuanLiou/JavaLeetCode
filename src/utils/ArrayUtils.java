@@ -42,4 +42,15 @@ public class ArrayUtils {
         numberArray[leftIndex] = numberArray[rightIndex];
         numberArray[rightIndex] = temp;
     }
+
+    public static void reverse(int[] numberArray, int startPosition, int endPosition) {
+        int start = startPosition;
+        int end = endPosition;
+
+        while (start < end) {
+            swap(numberArray, start, end);
+            start++;
+            end--;
+        }
+    }
 }
