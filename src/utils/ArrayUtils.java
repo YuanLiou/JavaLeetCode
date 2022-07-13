@@ -23,6 +23,17 @@ public class ArrayUtils {
         }
     }
 
+    public static void printIntList(List<Integer> stringList) {
+        for (int i = 0; i < stringList.size(); i++) {
+            Integer numberResult = stringList.get(i);
+            if (i != stringList.size() - 1) {
+                System.out.print(String.valueOf(numberResult) + ", ");
+            } else {
+                System.out.print(String.valueOf(numberResult));
+            }
+        }
+    }
+
     public static int[] generateArray(int numberMaxBound, int size) {
         if (numberMaxBound <= 0 || size <= 0) {
             return new int[0];
