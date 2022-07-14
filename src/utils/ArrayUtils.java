@@ -23,10 +23,10 @@ public class ArrayUtils {
         }
     }
 
-    public static void printIntList(List<Integer> stringList) {
-        for (int i = 0; i < stringList.size(); i++) {
-            Integer numberResult = stringList.get(i);
-            if (i != stringList.size() - 1) {
+    public static void printIntList(List<Integer> integerList) {
+        for (int i = 0; i < integerList.size(); i++) {
+            Integer numberResult = integerList.get(i);
+            if (i != integerList.size() - 1) {
                 System.out.print(String.valueOf(numberResult) + ", ");
             } else {
                 System.out.print(String.valueOf(numberResult));
