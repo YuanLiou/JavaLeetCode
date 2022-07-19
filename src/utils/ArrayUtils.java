@@ -13,6 +13,16 @@ public class ArrayUtils {
             System.out.print(numberResult);
         }
     }
+
+    public static void printCharArray(char[] array) {
+        for (int i = 0; i < array.length; i++) {
+            String postfix = "";
+            if (i != array.length - 1) {
+                postfix = ", ";
+            }
+            System.out.print(array[i] + postfix);
+        }
+    }
     public static void printStringList(List<String> stringList) {
         for (int i = 0; i < stringList.size(); i++) {
             String numberResult = stringList.get(i);
