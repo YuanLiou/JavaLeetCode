@@ -5,8 +5,69 @@ public class DiagonalTraverse {
         var sample01 = new int[][]{ { 1, 2, 3 }, {4, 5, 6}, {7, 8, 9} };
         var sample02 = new int[][]{ { 1, 2 }, {3, 4} };
 
-        var result = findDiagonalOrder(sample01);
+        var result = findDiagonalOrder02(sample02);
         ArrayUtils.printArray(result);
+    }
+
+    public static int[] findDiagonalOrder02(int[][] mat) {
+        // base case
+        if (mat == null || mat.length == 0) {
+            return new int[]{};
+        }
+
+        // base case
+        if (mat.length == 1) {
+            return mat[0];
+        }
+
+        // Traverse
+        int row = mat.length;
+        int column = mat[0].length;
+        int[] resultArray = new int[row * column];
+
+        // 檢查是否撞到邊界，題目第一步是往上
+        int currentRow = 0;
+        int currentColumn = 0;
+        int index = 0;
+        while ((currentRow >= 0 && currentRow < row) &&
+                (currentColumn >= 0 && currentColumn < column) &&
+                (index < resultArray.length)) {
+            int currentNumber = mat[currentRow][currentColumn];
+            resultArray[index] = currentNumber;
+
+            // Find Direction
+            boolean isMovingUp = ((currentRow + currentColumn) % 2 == 0);
+            if (isMovingUp) {
+                // Edge Corner 01, Edge Corner 02, Keep Moving...
+                if (currentColumn == column - 1) {
+                    // Meets right edge, Moving Down
+                    currentRow++;
+                } else if (currentRow == 0) {
+                    // Meets top edge, Moving Right
+                    currentColumn++;
+                } else {
+                    // Keep moving top right
+                    currentRow--;
+                    currentColumn++;
+                }
+            } else {
+                // Edge Corner 01, Edge Corner 02, Keep Moving...
+                if (currentRow == row - 1) {
+                    // Meets bottom edge, Moving Right
+                    currentColumn++;
+                } else if (currentColumn == 0) {
+                    // Meets left edge, Moving Down
+                    currentRow++;
+                } else {
+                    // Keep moving bottom left
+                    currentRow++;
+                    currentColumn--;
+                }
+            }
+            index++;
+        }
+
+        return resultArray;
     }
 
     public static int[] findDiagonalOrder(int[][] mat) {
