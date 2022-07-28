@@ -13,7 +13,6 @@ public class PascalTriangleTwo {
 
     public static List<Integer> getRow02(int rowIndex) {
         // 平移法
-
         Integer[] result = new Integer[rowIndex + 1];
         Arrays.fill(result,0);
 
