@@ -27,7 +27,7 @@ public class ReverseWordsInStringThree {
                     j = i;
                 }
             } else {
-                reverse(charArray, j,i - 1);
+                reverse(charArray, j, i - 1);
                 j = -1;
             }
 
