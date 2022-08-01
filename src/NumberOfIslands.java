@@ -1,5 +1,12 @@
 public class NumberOfIslands {
 
+    private static final char[][] SAMPLE_00 = {
+        {'1','1','1','1','0'},
+        {'1','1','0','1','0'},
+        {'1','1','0','0','0'},
+        {'0','0','0','0','0'}
+    };
+
     private static final char[][] SAMPLE_01 = {
         {'1','1','0','0','0'},
         {'1','1','0','0','0'},
@@ -8,9 +15,48 @@ public class NumberOfIslands {
     };
     
     public static void main(String[] args) {
-        int result = numIslands(SAMPLE_01);
+        int result = numIslands02(SAMPLE_00);
         System.out.println("Result is " + result);
     }
+
+    //region Second Try
+    public static int numIslands02(char[][] grid) {
+        int islandCounts = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                char currentChar = grid[i][j];
+                if (currentChar == '1') {
+                    traverse(grid, i, j); // Flip the nearby '1'
+                    islandCounts++;
+                }
+            }
+        }
+        return islandCounts;
+    }
+
+    private static void traverse(char[][] grid, int i, int j) {
+        // base case
+        if ((i < 0 || i >= grid.length || j < 0 || j >= grid[i].length)) {
+            return;
+        }
+
+        char currentChar = grid[i][j];
+        if (currentChar == '0') {
+            return;
+        }
+
+        // flip the result
+        if (currentChar == '1') {
+            grid[i][j] = '0';
+        }
+
+        // start traverse
+        traverse(grid, i - 1, j); // find top
+        traverse(grid, i + 1, j); // find bottom
+        traverse(grid, i, j - 1); // find left
+        traverse(grid, i, j + 1); // find left
+    }
+    //endregion
 
     public static int numIslands(char[][] grid) {
         // 先處理極值 grid is null or 根本沒長度
