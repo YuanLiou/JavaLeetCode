@@ -14,6 +14,16 @@ public class ArrayUtils {
         }
     }
 
+    public static void printMatrix(int[][] matrix) {
+        for (int[] innerArray : matrix) {
+            System.out.print(" [ ");
+            for (int i = 0; i < innerArray.length; i++) {
+                System.out.print(innerArray[i] + " ");
+            }
+            System.out.print(" ] ");
+        }
+    }
+
     public static void printCharArray(char[] array) {
         for (int i = 0; i < array.length; i++) {
             String postfix = "";
