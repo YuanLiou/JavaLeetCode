@@ -1,19 +1,12 @@
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 import utils.ArrayUtils;
 import utils.Node;
 
-public class PopulatingNextRightPointersInEachNode {
+public class PopulatingNextRightPointersInEachNodeTwo {
     public static void main(String[] args) {
         //region generate sample data
         Node node07 = new Node(7);
-        Node node06 = new Node(6);
         Node node05 = new Node(5);
         Node node04 = new Node(4);
         Node node03 = new Node(3);
@@ -23,42 +16,40 @@ public class PopulatingNextRightPointersInEachNode {
         node02.left = node04;
         node02.right = node05;
 
-        node03.left = node06;
         node03.right = node07;
 
         node.left = node02;
         node.right = node03;
         //endregion
 
-        var sampleClass = new PopulatingNextRightPointersInEachNode();
-        Node result = sampleClass.connect(node);
+        var sampleClass = new PopulatingNextRightPointersInEachNodeTwo();
+        var result = sampleClass.connect(node);
 
-        var printResult = Node.generateNextNodesValues(result);
-        ArrayUtils.printStringList(printResult);
+        var printList = Node.generateNextNodesValues(result);
+        ArrayUtils.printStringList(printList);
     }
 
     public Node connect(Node root) {
         if (root == null) {
-            return root;
+            return null;
         }
 
-        // Doing BFS
         ArrayDeque<Node> nodes = new ArrayDeque<>();
         nodes.offer(root);
 
         while (!nodes.isEmpty()) {
             var size = nodes.size();
             var currentIndex = 0;
-            Node tempCurrentNode = null;
+
+            Node tempNode = null;
+
             while (currentIndex < size) {
                 var currentNode = nodes.poll();
-                if (currentNode != null) {
-                    if (tempCurrentNode != null) {
-                        tempCurrentNode.next = currentNode;
-                    }
 
-                    tempCurrentNode = currentNode;
+                if (tempNode != null) {
+                    tempNode.next = currentNode;
                 }
+                tempNode = currentNode;
 
                 if (currentNode != null && currentNode.left != null) {
                     nodes.offer(currentNode.left);
