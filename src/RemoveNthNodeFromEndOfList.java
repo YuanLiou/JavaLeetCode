@@ -24,6 +24,7 @@ public class RemoveNthNodeFromEndOfList {
 		ListNode.printListNode(result);
 	}
 
+	// Approach 01: Dual Loop
     public ListNode removeNthFromEnd(ListNode head, int n) {
 		if (head == null) {
 			return null;
@@ -63,5 +64,39 @@ public class RemoveNthNodeFromEndOfList {
 	    }
 
 		return head;
+	}
+
+
+	// Approach 02: DummyNode time: O(n)
+	public ListNode removeNthFromEnd02(ListNode head, int n) {
+		// Base case
+		if (head == null) {
+			return null;
+		}
+
+		// 1. Add a new dummy node for slow pointer to start
+		ListNode dummyNode = new ListNode(-1);
+		dummyNode.next = head;
+
+		ListNode slowPointer = dummyNode;
+
+		// 2. Add a fast pointer starts from original head, and moves n steps.
+		ListNode fastPointer = head;
+		for (int i = 0; i < n; i++) {
+			fastPointer = fastPointer.next;
+		}
+
+		// 3. Move fast and slow pointer every one step until fast pointer
+		//    point to null
+		while (fastPointer != null) {
+			fastPointer = fastPointer.next;
+			slowPointer = slowPointer.next;
+		}
+
+		// 4. Point the next node of slow pointer to the next and next node
+		//    in order to remove it.
+		slowPointer.next = slowPointer.next.next;
+
+		return dummyNode.next; // return original head
 	}
 }
