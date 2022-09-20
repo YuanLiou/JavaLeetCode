@@ -19,7 +19,7 @@ public class ReverseLinkedList {
 		sample04.next = sample05;
 		//endregion
 
-		var nodes = sampleClass.reverseList02(sample01);
+		var nodes = sampleClass.reverseList(sample01);
 		ListNode.printListNode(nodes);
 
 	}
@@ -32,19 +32,20 @@ public class ReverseLinkedList {
 		}
 
 		ListNode originalHead = head;
-		ListNode originalNextNode = head.next;
+		ListNode currentNode = head.next;
 
-		while (originalNextNode != null) {
+		while (currentNode != null) {
 			// 1. ) Swap the list position
-			ListNode nextNode = originalNextNode.next;
+			// Push the original head to the other side, keep pushing right ->
+			ListNode nextNode = currentNode.next;
 			originalHead.next = nextNode;
-			originalNextNode.next = head;
+			currentNode.next = head;
 
 			// 2. ) Update the head
-			head = originalNextNode;
+			head = currentNode;
 
 			// 3. ) Update the loop object
-			originalNextNode = nextNode;
+			currentNode = nextNode;
 		}
 
 		return head;
@@ -60,7 +61,7 @@ public class ReverseLinkedList {
 		// Reverse direction to current node
 		// e.g. reverse: 1 -> 2, we want to reverse the next node of 2
 		// 1's next is 2, we make 2 back to 1, so it's 2's next object
-		// that why it is node.next.next
+		// that's why it is node.next.next
 		head.next.next = head;
 		head.next = null;
 		return reversedListHead;
