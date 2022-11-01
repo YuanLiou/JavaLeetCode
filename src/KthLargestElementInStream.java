@@ -1,74 +1,38 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-
-import utils.TreeNode;
+import java.util.PriorityQueue;
 
 public class KthLargestElementInStream {
 	public static void main(String[] args) {
+		var samples = new int[] {4, 5, 8, 2};
+		var sampleClass = new KthLargestElementInStream(3, samples);
+		var ans01 = sampleClass.add(3);
+		var ans02 = sampleClass.add(5);
+		var ans03 = sampleClass.add(10);
+		var ans04 = sampleClass.add(9);
+		var ans05 = sampleClass.add(4);
+
+		System.out.println(ans01 + ", " + ans02 + ", " + + ans03 + ", " + ans04 + ", " + ans05);
 	}
 
-	private TreeNode node;
+	private PriorityQueue<Integer> queue = new PriorityQueue();
 	private int kthLargest;
 
     public KthLargestElementInStream(int k, int[] nums) {
-        this.kthLargest = k;
+		this.kthLargest = k;
 		for (int number : nums) {
-			node = insert(node, number);
+			add(number);
 		}
     }
 
     public int add(int val) {
-        node = insert(node, val);
-		var result = printValue(node);
-		return result.get(result.size() - kthLargest);
+		queue.offer(val);
+	    if (queue.size() > kthLargest) {
+			queue.poll();
+	    }
+
+		Integer result = queue.peek();
+		if (result != null) {
+			return result;
+		}
+		return -1;
     }
-
-    private TreeNode insert(TreeNode root, int value) {
-		if (root == null) {
-			return new TreeNode(value);
-		}
-
-		if (root.val >= value) {
-			// 1.) Input value is smaller than the root value, insert left
-			TreeNode node = insert(root.left, value);
-			if (node != root) {
-				// We're in the leaf
-				root.left = node;
-			}
-		}
-
-		if (root.val < value) {
-			// 2.) Input value is larger than the root value, insert right
-			TreeNode node = insert(root.right, value);
-			if (node != root) {
-				// We're in the leaf
-				root.right = node;
-			}
-		}
-		return root;
-	}
-
-	private List<Integer> printValue(TreeNode root) {
-		// in order traverse: l-n-r
-		ArrayDeque<TreeNode> stacks = new ArrayDeque<>();
-		TreeNode currentNode = root;
-		List<Integer> result = new ArrayList<>();
-
-		while (currentNode != null || !stacks.isEmpty()) {
-			// 1.) Find very left
-			while (currentNode != null) {
-				stacks.push(currentNode);
-				currentNode = currentNode.left;
-			}
-
-			// 2.) Visit itself
-			TreeNode popNode = stacks.pop();
-			result.add(popNode.val);
-
-			// 3.) Point to the right one
-			currentNode = popNode.right;
-		}
-		return result;
-	}
 }
