@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import utils.ArrayUtils;
 
 public class DuplicateZeros {
@@ -6,11 +5,36 @@ public class DuplicateZeros {
 		var sampleClass = new DuplicateZeros();
 		// Expected: 1,0,0,2,3,0,0,4
 		var example01 = new int[]{1, 0, 2, 3, 0, 4, 5, 0};
-		sampleClass.duplicateZeros(example01);
+		sampleClass.duplicateZeros01(example01);
 		ArrayUtils.printArray(example01);
 	}
 
-	public void duplicateZeros(int[] arr) {
+	// brute force
+	public void duplicateZeros01(int[] arr) {
+		boolean isPreviousNumberInserted = false;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] == 0 && !isPreviousNumberInserted) {
+				insert(arr, i, 0);
+				isPreviousNumberInserted = true;
+			} else {
+				isPreviousNumberInserted = false;
+			}
+		}
+	}
+
+	private void insert(int[] array, int position, int value) {
+		swiftToRight(array,position);
+		array[position] = value;
+	}
+
+	private void swiftToRight(int[] array, int startPoint) {
+		for (int i = array.length - 1; i >= startPoint; i--) {
+			int previousIndex = Math.max(i - 1, 0);
+			array[i] = array[previousIndex];
+		}
+	}
+
+	public void duplicateZeros02(int[] arr) {
 		// 1.) Counts Zeros
 		int zeroCounts = 0;
 		for (int number : arr) {
