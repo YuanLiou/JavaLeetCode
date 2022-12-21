@@ -18,8 +18,8 @@ public class QuickUnionOptimized {
 			return x;
 		}
 
-		x = find(roots[x]);
-		return x;
+		roots[x] = find(roots[x]);
+		return roots[x];
 	}
 
 	// Union by rank
