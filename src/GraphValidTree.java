@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 public class GraphValidTree {
@@ -16,7 +20,7 @@ public class GraphValidTree {
 		};
 		var sample01N = 5;
 		// Expected: true
-		var result = sampleClass.validTree02(sample01N, sample01);
+		var result = sampleClass.validTree03(sample01N, sample01);
 		System.out.println("Result is " + result);
 
 		var sample02 = new int[][] {
@@ -28,7 +32,7 @@ public class GraphValidTree {
 		};
 		var sample02N = 5;
 		// Expected: false
-		var result02 = sampleClass.validTree02(sample02N, sample02);
+		var result02 = sampleClass.validTree03(sample02N, sample02);
 		System.out.println("Result02 is " + result02);
 	}
 
@@ -134,5 +138,62 @@ public class GraphValidTree {
 
 		// Make sure each node has been visisted.
 		return parent.size() == n;
+	}
+
+
+	// Approach 02: Graph theory to know how tree has form
+	//  In previous approach, we use a parent, node map to know
+	//  there is a cycle...
+	public boolean validTree03(int n, int[][] edges) {
+		// We know that:
+		// A tree MUST form in "n - 1" edges. If not, it might not be a tree
+		// or it is a disjoint set.
+
+		// 1. ) Check whether it can form a tree
+		if (edges.length != n - 1) {
+			return false;
+		}
+
+		// After we pass checks above, we can make sure this edges will NOT contain a cycle.
+
+		// 2.) Create a adjancencyList based on all edges
+		List<List<Integer>> adjancencyList = new ArrayList<>();
+
+		for (int i = 0; i < n; i++) {
+			adjancencyList.add(new ArrayList<>());
+		}
+
+		for (int[] edge : edges) {
+			// 互相關聯
+			adjancencyList.get(edge[0]).add(edge[1]);
+			adjancencyList.get(edge[1]).add(edge[0]);
+		}
+
+		// 3.) BFS, with Seen set
+		// BFS
+		Queue<Integer> queue = new LinkedList<>();
+		queue.add(0);
+
+		// Seen collections, use set here
+		Set<Integer> seens = new HashSet<>();
+		seens.add(0); // add 頂點, 題目: n is from 0 to n - 1
+
+		while (!queue.isEmpty()) {
+			int node = queue.poll();
+			// 拜訪鄰居
+			for (int neighbor : adjancencyList.get(node)) {
+				// Stop condition, trivial path (duplicated path)
+				if (seens.contains(neighbor)) {
+					continue;
+				}
+
+				// Prepare next round
+				queue.offer(neighbor);
+				seens.add(neighbor);
+			}
+		}
+
+		// 全走過，即 OK
+		return seens.size() == n;
 	}
 }
