@@ -140,7 +140,6 @@ public class GraphValidTree {
 		return parent.size() == n;
 	}
 
-
 	// Approach 02: Graph theory to know how tree has form
 	//  In previous approach, we use a parent, node map to know
 	//  there is a cycle...
