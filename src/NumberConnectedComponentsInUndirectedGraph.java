@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class NumberConnectedComponentsInUndirectedGraph {
@@ -57,5 +59,47 @@ public class NumberConnectedComponentsInUndirectedGraph {
 			unionFind.union(edge[0], edge[1]);
 		}
 		return unionFind.getGroupCounts();
+	}
+
+	public int countComponentsDfs(int n, int[][] edges) {
+		// setup parameters
+		int componentsCount = 0;
+		boolean[] seens = new boolean[n];
+
+		// create adjacencyList
+		List<List<Integer>> adjacencyList = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			adjacencyList.add(new ArrayList<>());
+		}
+
+		for (int[] edge : edges) {
+			adjacencyList.get(edge[0]).add(edge[1]);
+			adjacencyList.get(edge[1]).add(edge[0]);
+		}
+
+		// DFS
+		for (int i = 0; i < n; i++) {
+			if (!seens[i]) {
+				componentsCount++;
+				dfs(adjacencyList, seens, i);
+			}
+		}
+
+		return componentsCount;
+	}
+
+	private void dfs(List<List<Integer>> adjacencyList, boolean[] seens, int start) {
+		// update seens
+		seens[start] = true;
+
+		// dfs
+		var neighbors = adjacencyList.get(start);
+		for (int i = 0; i < neighbors.size(); i++) {
+			//  stop condition(base case), this start point has been seen, so we can ignore it
+			var currentNumber = neighbors.get(i);
+			if (!seens[currentNumber]) {
+				dfs(adjacencyList, seens, currentNumber);
+			}
+		}
 	}
 }
