@@ -36,15 +36,50 @@ public class AllPathsSourceLeadToDestination {
 		for (int[] edge : edges) {
 			adjacencyList.get(edge[0]).add(edge[1]);
 		}
-		return isValidPath02(source, destination, adjacencyList, new HashSet<Integer>());
+		
+		return isValidPath(source, destination, adjacencyList, new NodeColor[n]);
+	}
+
+	enum NodeColor {
+		GRAY, BLACK;
 	}
 
 	private boolean isValidPath(
 			int current,
 			int destination,
 			List<List<Integer>> graph,
-			HashSet<Integer> visited
+			NodeColor[] nodeStatus
 	) {
+		// base case
+		// check if current node is a gray node.
+		// it's means we meet a node which is processing currently. It has a cycle in this graph.
+		if (nodeStatus[current] != null) {
+			// node is not white
+			return nodeStatus[current] == NodeColor.BLACK; // meet black one is a valid path
+		}
+
+		// check whether current node has any neighbors?
+		if (graph.get(current).isEmpty()) {
+			return current == destination; // if this node is the destination, is a valid path
+		}
+
+		// set current node to gray. It is means we're processing it.
+		nodeStatus[current] = NodeColor.GRAY;
+
+		for (int nextTarget : graph.get(current)) {
+			var isValidPath = isValidPath(
+					nextTarget,
+                    destination,
+                    graph,
+                    nodeStatus
+			);
+			if (!isValidPath) {
+				return false;
+			}
+		}
+
+		// set current node to black. It is means we're done processing.
+		nodeStatus[current] = NodeColor.BLACK;
 		return true;
 	}
 
@@ -78,7 +113,7 @@ public class AllPathsSourceLeadToDestination {
 
 		visited.add(current); // set current node a seen node
 		for (int nextDestination : graph.get(current)) {
-			var isValidPath = isValidPath(
+			var isValidPath = isValidPath02(
 					nextDestination,
 					destination,
 					graph,
