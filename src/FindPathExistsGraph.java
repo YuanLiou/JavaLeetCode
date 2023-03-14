@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -107,5 +108,41 @@ public class FindPathExistsGraph {
 			// stop if path is equal to source to destination or vise versa.
 			dfs(neighbor, destination, adjacencyList, seen);
 		}
+	}
+
+	public boolean validPathBFS(int n, int[][] edges, int source, int destination) {
+		// build adjacency list
+		List<List<Integer>> adjacencyList = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			adjacencyList.add(new ArrayList<>());
+		}
+
+		for (int[] edge : edges) {
+			adjacencyList.get(edge[0]).add(edge[1]);
+			adjacencyList.get(edge[1]).add(edge[0]);
+		}
+
+		// doing BFS
+		HashSet<Integer> seens = new HashSet<>();
+		ArrayDeque<Integer> queue = new ArrayDeque<>();
+		queue.push(source);
+
+		while (!queue.isEmpty()) {
+			var current = queue.poll();
+			if (seens.contains(current)) {
+				continue;
+			}
+
+			if (current == destination) {
+				return true;
+			}
+
+			seens.add(current);
+			for (int number : adjacencyList.get(current)) {
+				queue.push(number);
+			}
+		}
+
+		return false;
 	}
 }
