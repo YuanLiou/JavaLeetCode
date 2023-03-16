@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -7,7 +8,7 @@ public class AllPathsFromSourceToTarget {
 	public static void main(String[] args) {
 		var sampleClass = new AllPathsFromSourceToTarget();
 		var example01 = new int[][]{{1, 2}, {3}, {3}, {},};
-		var result = sampleClass.allPathsSourceTarget(example01);
+		var result = sampleClass.allPathsSourceTargetBFS(example01);
 
 		for (List<Integer> list : result) {
 			for (int number : list) {
@@ -17,7 +18,7 @@ public class AllPathsFromSourceToTarget {
 
 	}
 
-	public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+	public List<List<Integer>> allPathsSourceTargetDFS(int[][] graph) {
 		// base case: whether input graph is valid
 		if (graph == null || graph.length == 0) {
 			return Collections.emptyList();
@@ -44,5 +45,39 @@ public class AllPathsFromSourceToTarget {
 			dfs(neighbor, graph, path, resultList);
 			path.removeLast(); // backtracking
 		}
+	}
+
+	public List<List<Integer>> allPathsSourceTargetBFS(int[][] graph) {
+		if (graph == null || graph.length == 0) {
+			return Collections.emptyList();
+		}
+
+		List<List<Integer>> result = new ArrayList<>();
+		ArrayDeque<List<Integer>> queue = new ArrayDeque<>();
+
+		// Start our first journey
+		List<Integer> currentPath = new ArrayList<>();
+		currentPath.add(0); // We always start from 0
+		queue.push(currentPath); // Push the first step to the queue
+
+		// Doing BFS
+		while (!queue.isEmpty()) {
+			var current = queue.poll();
+			// we need to get the final step of current path to find next step where to go.
+			var currentNumber = current.get(current.size() - 1);
+			if (currentNumber == graph.length - 1) {
+				// we have found the destination
+				result.add(current);
+				continue;
+			}
+
+			// Find out all numbers in adjacency list
+			for (int nextNumber : graph[currentNumber]) {
+				List<Integer> nextPath = new ArrayList<>(current);
+				nextPath.add(nextNumber);
+				queue.push(nextPath);
+			}
+		}
+		return result;
 	}
 }
