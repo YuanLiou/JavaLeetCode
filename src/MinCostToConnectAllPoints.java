@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -8,11 +9,76 @@ public class MinCostToConnectAllPoints {
 		int[][] points = {{0, 0}, {2, 2}, {3, 10}, {5, 2}, {7, 0}};
 		System.out.print("Minimum Cost to Connect Points = ");
 		// Expected: 20
-		System.out.println(sampleClass.minCostConnectPoints(points));
+		System.out.println(sampleClass.minCostConnectPointsPrim(points));
+	}
+
+	public int minCostConnectPointsPrim(int[][] points) {
+		// base case
+		if (points == null || points.length == 0) {
+			return 0;
+		}
+
+		// prepare basic parameters
+		int size = points.length;
+		// PriorityQueue
+		PriorityQueue<PathCost> pathCosts = new PriorityQueue<>(new Comparator<PathCost>() {
+			@Override
+			public int compare(PathCost cost01, PathCost cost02) {
+				return cost01.cost - cost02.cost;
+			}
+		});
+		// A visited array
+		boolean[] visited = new boolean[size];
+		Arrays.fill(visited, false);
+
+		// Build an adjacency list
+		// build up PathCost based on the first node
+		// so the first value (which is x) in PathCost would always be 0
+		int[] coordinates01 = points[0];
+		// The point won't connect to itself, so start at 1
+		for (int j = 1; j < size; j++) {
+			int[] coordinates02 = points[j];
+			// calculation based on the question's equation.
+			int cost =
+					Math.abs(coordinates01[0] - coordinates02[0]) +
+					Math.abs(coordinates01[1] - coordinates02[1]);
+
+			pathCosts.add(new PathCost(0, j, cost));
+		}
+		visited[0] = true;
+
+		// Calculate the cost
+		int cost = 0;
+		int step = size - 1;
+		while (!pathCosts.isEmpty() && step > 0) {
+			var current = pathCosts.poll();
+			if (!visited[current.y]) {
+				visited[current.y] = true;
+				cost += current.cost;
+
+				// build up other points which connected with current one
+				int[] neighbor01 = points[current.y];
+				for (int j = 0; j < size; j++) {
+					// The point won't connect to itself, so start at (j != current.y)
+					if (!visited[j] && j != current.y) {
+						int[] neighbor02 = points[j];
+						// calculation based on the question's equation.
+						int neighborCost =
+								Math.abs(neighbor01[0] - neighbor02[0]) +
+										Math.abs(neighbor01[1] - neighbor02[1]);
+						pathCosts.add(new PathCost(current.y, j, neighborCost));
+					}
+				}
+
+				step--;
+			}
+		}
+
+		return cost;
 	}
 
 	// Kruskal's Algorithm
-	public int minCostConnectPoints(int[][] points) {
+	public int minCostConnectPointsKruskal(int[][] points) {
 		// base case
 		if (points == null || points.length == 0) {
 			return 0;
