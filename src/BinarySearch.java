@@ -4,8 +4,12 @@ public class BinarySearch {
         var sample01 = new int[] {7, 11, 25, 38, 39, 54, 61, 86};
         var target = 25;
 
-        var resultIndex = binarySearchIndex(sample01, target);
-        System.out.println("Target index is " + resultIndex);
+//        var resultIndex = binarySearchIndex(sample01, target);
+//        System.out.println("Target index is " + resultIndex);
+        
+        var sampleClass = new BinarySearch();
+        var result = sampleClass.search(sample01, target);
+        System.out.println("Result index is " + result);
     }
 
     public static int binarySearchIndex(int[] inputs, int targets) {
@@ -32,5 +36,27 @@ public class BinarySearch {
         }
 
         return -1;
+    }
+
+    public int search(int[] nums, int target) {
+        int result = -1;
+
+        int leftBound = 0;
+        int rightBound = nums.length - 1;
+        int middleIndex = (leftBound + rightBound) / 2;
+        while (leftBound <= rightBound) {
+            if (nums[middleIndex] == target) {
+                return middleIndex;
+            }
+
+            if (nums[middleIndex] > target) {
+                rightBound = middleIndex - 1;
+            } else {
+                leftBound = middleIndex + 1;
+            }
+            middleIndex = (leftBound + rightBound) / 2;
+        }
+
+        return result;
     }
 }
