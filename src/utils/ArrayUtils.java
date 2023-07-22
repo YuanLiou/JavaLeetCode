@@ -1,7 +1,9 @@
 package utils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class ArrayUtils {
 
@@ -67,6 +69,28 @@ public class ArrayUtils {
 		for (int i = 0; i < arraySize; i++) {
 			resultArray[i] = random.nextInt(numberMaxBound);
 		}
+		return resultArray;
+	}
+
+	public static int[] generateDedupedArray(int numberMaxBound, int size) {
+		if (numberMaxBound <= 0 || size <= 0) {
+			return new int[0];
+		}
+
+		Random random = new Random();
+		int arraySize = size;
+		Set<Integer> resultSet = new HashSet<>();
+		while ((resultSet.size()) < arraySize) {
+			resultSet.add(random.nextInt(numberMaxBound));
+		}
+
+		int[] resultArray = new int[arraySize];
+		int index = 0;
+		for (int number : resultSet) {
+			resultArray[index] = number;
+			index++;
+		}
+		
 		return resultArray;
 	}
 

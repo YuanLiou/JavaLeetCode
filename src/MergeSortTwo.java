@@ -4,7 +4,7 @@ public class MergeSortTwo {
 	public static void main(String[] args) {
 		final int bound = 50;
 		final int size = 8;
-		int[] array = ArrayUtils.generateArray(bound,size);
+		int[] array = ArrayUtils.generateDedupedArray(bound,size);
 		System.out.println("Before Sorted:");
 		ArrayUtils.printArray(array);
 
