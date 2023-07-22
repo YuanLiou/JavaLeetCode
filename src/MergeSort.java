@@ -33,8 +33,8 @@ public class MergeSort {
 		//        (it has been sorted, so it can be put into merged one directly.)
 		// recursion, find the base case as the stop condition
 
-		if (numberArray.length < 2) {
-			// if an array length is smaller than 2, it means we find the smallest sample.
+		if (numberArray.length <= 1) {
+			// if an array length is 1, it means we find the smallest sample.
 			return;
 		}
 
