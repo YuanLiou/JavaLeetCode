@@ -33,7 +33,7 @@ public class HeightOfBinaryTreeAfterSubtreeRemovalQueries {
 			int height = heights[query];
 
 			if (depthToHeightGroup.get(depth).size() == 1) {
-				answers.add(depthToHeightGroup.get(depth - 1).get(0));
+				answers.add(depth - 1);
 			} else if (depthToHeightGroup.get(depth).get(0) == height) {
 				// 要刪掉的是這層的最大值
 				// 選擇第二大的遞補
