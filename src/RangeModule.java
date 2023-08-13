@@ -19,6 +19,11 @@ public class RangeModule {
 	List<int[]> intervals = new ArrayList<>();
 	public RangeModule() {}
 
+	/*
+	add range
+	Time: O(n)
+	Space: O(n)
+	 */
 	public void addRange(int left, int right) {
 		List<int[]> result = new ArrayList<>();
 		int[] newIntervals = new int[]{left, right};
@@ -44,6 +49,11 @@ public class RangeModule {
 		this.intervals = result;
 	}
 
+	/*
+	queryRange
+	Time: O(logn)
+	Space: O(1)
+	 */
 	public boolean queryRange(int left, int right) {
 		if (intervals.isEmpty()) {
 			return false;
@@ -68,6 +78,11 @@ public class RangeModule {
 		return intervals.get(insertionIndex)[1] >= right;
 	}
 
+	/*
+	removeRange
+	Time: O(n)
+	Space: O(n)
+	 */
 	public void removeRange(int left, int right) {
 		List<int[]> result = new ArrayList<>();
 		int[] removeIntervals = new int[]{left, right};
