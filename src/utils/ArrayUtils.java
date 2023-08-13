@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -90,7 +91,7 @@ public class ArrayUtils {
 			resultArray[index] = number;
 			index++;
 		}
-		
+
 		return resultArray;
 	}
 
@@ -109,5 +110,25 @@ public class ArrayUtils {
 			start++;
 			end--;
 		}
+	}
+
+	/**
+	 * @return the right index of insertion.
+	 */
+	public static int bisect(int[] inputArray, int target) {
+		int index = Arrays.binarySearch(inputArray, target);
+		if (index < 0) {
+			// did not found, it'll return an insertion point (-(insertion point) - 1)
+			/*
+			sample:
+				- Suppose we are searching for the value 3 in the sorted list [1, 2, 4, 5, 7].
+				- Since 3 is not in the list, Arrays.binarySearch() will return −3
+				because the insertion point for 3 is at index 2.
+				- To have the correct position, performing -(index + 1) will be −(−3 + 1) = 2 ,
+				which is the correct insertion point.
+			 */
+			return -(index + 1);
+		}
+		return index + 1;
 	}
 }
