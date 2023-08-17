@@ -1,6 +1,9 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.PriorityQueue;
 import utils.ArrayUtils;
 
@@ -56,6 +59,49 @@ public class TopKFrequentWords {
 				result.add(word);
 			}
 		}
+		return result;
+	}
+
+
+	// Time: O(n * log K)
+	public List<String> topKFrequentMinHeap(String[] words, int k) {
+		// 1.) build up a map which contains the frequency of each words
+		Map<String, Integer> wordMaps = new HashMap<>();
+		for (String word : words) {
+			var counts = wordMaps.getOrDefault(word, 0);
+			wordMaps.put(word, counts + 1);
+		}
+
+		// 2.) build a MinHeap (PriorityQueue)
+		//  2-1) compare the frequency
+		//  2-2) if the frequency is the same, compare String itself in anti-lexicographical order
+		PriorityQueue<String> minHeap = new PriorityQueue<>(
+			(string1, string2) -> {
+				var frequency01 = wordMaps.get(string1);
+				var frequency02 = wordMaps.get(string2);
+
+				if (Objects.equals(frequency01, frequency02)) {
+					return string2.compareTo(string1);
+				}
+				// small to large
+				return frequency01 - frequency02;
+			}
+		);
+
+		// Put word into the minHeap
+		//  here make the time complexity O(n * log K)
+		for (var entrySet : wordMaps.entrySet()) {
+			minHeap.offer(entrySet.getKey());
+			if (minHeap.size() > k) {
+				minHeap.poll();
+			}
+		}
+
+		List<String> result = new ArrayList<>();
+		for (int i = 0; i < k; i++) {
+			result.add(minHeap.poll());
+		}
+		Collections.reverse(result);
 		return result;
 	}
 }
