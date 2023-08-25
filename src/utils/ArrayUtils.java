@@ -59,6 +59,16 @@ public class ArrayUtils {
 		}
 	}
 
+	public static void printIntListMatrix(List<List<Integer>> matrix) {
+		for (List<Integer> innerList : matrix) {
+			System.out.print(" [ ");
+			for (Integer integer : innerList) {
+				System.out.print(integer + " ");
+			}
+			System.out.print(" ] ");
+		}
+	}
+
 	public static int[] generateArray(int numberMaxBound, int size) {
 		if (numberMaxBound <= 0 || size <= 0) {
 			return new int[0];
