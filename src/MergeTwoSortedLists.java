@@ -11,8 +11,50 @@ public class MergeTwoSortedLists {
 		var list01b = new ListNode(1, list02b);
 
 		var sampleClass = new MergeTwoSortedLists();
-		var result = sampleClass.mergeTwoLists02(list01a, list01b);
+		var result = sampleClass.mergeTwoLists03(list01a, list01b);
 		ListNode.printListNode(result);
+	}
+
+	// Third practice
+	public ListNode mergeTwoLists03(ListNode list1, ListNode list2) {
+		if (list1 == null && list2 == null) {
+			return null;
+		}
+
+		ListNode head = new ListNode();
+		ListNode node = head;
+		while (list1 != null && list2 != null) {
+			if (list1.val <= list2.val) {
+				node.val = list1.val;
+				list1 = list1.next;
+			} else {
+				node.val = list2.val;
+				list2 = list2.next;
+			}
+
+			node.next = new ListNode();
+			node = node.next;
+		}
+
+		while (list1 != null) {
+			node.val = list1.val;
+			list1 = list1.next;
+			if (list1 != null) {
+				node.next = new ListNode();
+				node = node.next;
+			}
+		}
+
+		while (list2 != null) {
+			node.val = list2.val;
+			list2 = list2.next;
+			if (list2 != null) {
+				node.next = new ListNode();
+				node = node.next;
+			}
+		}
+
+		return head;
 	}
 
 	// Second practice
