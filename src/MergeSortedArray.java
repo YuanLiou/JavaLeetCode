@@ -12,8 +12,36 @@ public class MergeSortedArray {
 		var examplem1 = 3;
 		var examplem2 = 3;
 
-		sampleClass.merge02(example01A, examplem1, example02B, examplem2);
+		sampleClass.merge03(example01A, examplem1, example02B, examplem2);
 		ArrayUtils.printArray(example01A);
+	}
+
+	// Time: O(m + n)
+	// Space: O(1)
+	public void merge03(int[] nums1, int m, int[] nums2, int n) {
+		int num1Pointer = m - 1;
+		int num2Pointer = n - 1;
+		int mergePointer = m + n - 1;
+		if (num2Pointer < 0) {
+			return;
+		}
+
+		while (num2Pointer >= 0 && num1Pointer >= 0) {
+			if (nums1[num1Pointer] <= nums2[num2Pointer]) {
+				nums1[mergePointer] = nums2[num2Pointer];
+				num2Pointer--;
+			} else {
+				nums1[mergePointer] = nums1[num1Pointer];
+				num1Pointer--;
+			}
+			mergePointer--;
+		}
+
+		while (num2Pointer >= 0) {
+			nums1[mergePointer] = nums2[num2Pointer];
+			num2Pointer--;
+			mergePointer--;
+		}
 	}
 
 	// Brute force
