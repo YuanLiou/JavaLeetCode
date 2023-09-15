@@ -14,10 +14,6 @@ public class RemoveDuplicatesFromSortedArray {
 
 	// Second practice
 	public static int removeDuplicates02(int[] nums) {
-		if (nums.length == 1) {
-			return 0;
-		}
-
 		int i = 0;
 		int j = 0;
 		int minimumNumber = Integer.MIN_VALUE;
