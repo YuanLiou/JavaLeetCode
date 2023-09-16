@@ -18,23 +18,42 @@ public class ThreeSum {
 	// Second practice
 	public static List<List<Integer>> threeSum02(int[] nums) {
 		List<List<Integer>> result = new ArrayList<>();
-		int current;
-		int remainder;
-		for (int i = 0; i < nums.length; i++) {
-			current = nums[i];
-			remainder = -current;
+		Arrays.sort(nums);
+		for (int i = 0; i < nums.length - 2; i++) {
+			// 如果前一個數字和目前的一樣，就跳過以免重複計算
+			if (i > 0 && nums[i - 1] == nums[i]) {
+				continue;
+			}
+			
+			int current = nums[i];
+			int target = -current;
 
-			int left = i + 1;
-			int right = left + 1;
-			while (right < nums.length) {
-				if (nums[left] + nums[right] == remainder) {
-					result.add(new ArrayList<>(Arrays.asList(current, nums[left], nums[right])));
+			int lowerBound = i + 1;
+			int upperBound = nums.length - 1;
+			while (lowerBound < upperBound) {
+				if (nums[lowerBound] + nums[upperBound] < target) {
+					lowerBound++;
+				} else if (nums[lowerBound] + nums[upperBound] > target) {
+					upperBound--;
+				} else {
+					// nums[lowerBound] + nums[upperBound] == target
+					result.add(new ArrayList<>(Arrays.asList(current, nums[lowerBound], nums[upperBound])));
+					while (lowerBound < upperBound && nums[upperBound] == nums[upperBound - 1]) {
+						upperBound--;
+					}
+
+					while (lowerBound < upperBound && nums[lowerBound] == nums[lowerBound + 1]) {
+						lowerBound++;
+					}
+
+					upperBound--;
+					lowerBound++;
 				}
-				right++;
 			}
 		}
 		return result;
 	}
+
 	/**
 	 先 Sort 過
 	 一個 For loop，每次選擇第一位數字
