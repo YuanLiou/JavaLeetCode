@@ -60,6 +60,7 @@ public class BinarySearch {
 		return result;
 	}
 
+	// search index of the target
 	private int searchV2(int[] nums, int target) {
 		int left = 0;
 		int right = nums.length - 1;
@@ -72,6 +73,9 @@ public class BinarySearch {
 				left = middle + 1;
 			}
 		}
+
+		// after exiting the while loop,
+		// left is the minimal k satisfying the condition function
 		return left;
 	}
 }

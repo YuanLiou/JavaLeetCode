@@ -12,8 +12,41 @@ public class MergeSortedArray {
 		var examplem1 = 3;
 		var examplem2 = 3;
 
-		sampleClass.merge03(example01A, examplem1, example02B, examplem2);
+		sampleClass.merge04(example01A, examplem1, example02B, examplem2);
 		ArrayUtils.printArray(example01A);
+	}
+
+	// 由後向前
+	public void merge04(int[] nums1, int m, int[] nums2, int n) {
+		int mergePoint = (m + n) - 1;
+		if (mergePoint < 0) {
+			return;
+		}
+
+		int i = m - 1;
+		int j = n - 1;
+		while (i >= 0 && j >= 0) {
+			if (nums1[i] >= nums2[j]) {
+				nums1[mergePoint] = nums1[i];
+				i--;
+			} else {
+				nums1[mergePoint] = nums2[j];
+				j--;
+			}
+			mergePoint--;
+		}
+
+		while (i >= 0 && mergePoint >= 0) {
+			nums1[mergePoint] = nums1[i];
+			i--;
+			mergePoint--;
+		}
+
+		while (j >= 0 && mergePoint >= 0) {
+			nums1[mergePoint] = nums2[j];
+			j--;
+			mergePoint--;
+		}
 	}
 
 	// Time: O(m + n)
