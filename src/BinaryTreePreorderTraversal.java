@@ -1,29 +1,34 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import utils.ArrayUtils;
 import utils.TreeNode;
 
 public class BinaryTreePreorderTraversal {
-    public static void main(String[] args) {
-    }
 
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        traverse(root, result);
-        return result;
-    }
+	public static void main(String[] args) {
+		var sampleClass = new BinaryTreePreorderTraversal();
+		var sampleInput = TreeNode.arrayToBinaryTree(new Integer[] {1, 2, 4, 9, 7, null, 12});
+		var result01 = sampleClass.preorderTraversal(sampleInput);
+		ArrayUtils.printIntList(result01);
+	}
 
-    private void traverse(TreeNode root, List<Integer> result) {
-        // Base case
-        if (root == null) {
-            return;
-        }
+	public List<Integer> preorderTraversal(TreeNode root) {
+		List<Integer> result = new ArrayList<>();
+		traverse(root, result);
+		return result;
+	}
 
-        int value = root.val;
-        result.add(value);
+	private void traverse(TreeNode root, List<Integer> result) {
+		// Base case
+		if (root == null) {
+			return;
+		}
 
-        traverse(root.left, result); // find left
-        traverse(root.right, result); // find right
-    }
+		int value = root.val;
+		result.add(value);
+
+		traverse(root.left, result); // find left
+		traverse(root.right, result); // find right
+	}
 }
