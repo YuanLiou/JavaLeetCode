@@ -9,7 +9,7 @@ public class BinaryTreeInorderTraversal2 {
 
 	public static void main(String[] args) {
 		var sampleClass = new BinaryTreeInorderTraversal2();
-		var sampleInput = TreeNode.arrayToBinaryTree(new Integer[] {1, 2, 4, 9, 7, null, 12});
+		var sampleInput = TreeNode.arrayToBinaryTree(new Integer[]{1, 2, 4, 9, 7, null, 12});
 		var result01 = sampleClass.inorderTraversal(sampleInput);
 		ArrayUtils.printIntList(result01);
 	}
