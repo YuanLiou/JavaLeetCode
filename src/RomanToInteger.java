@@ -4,7 +4,7 @@ import java.util.Map;
 public class RomanToInteger {
 	public static void main(String[] args) {
 		var sampleClass = new RomanToInteger();
-		var sampleInput01 = "MCMXCIV";
+		var sampleInput01 = "MXXIIII";
 		// Expect
 		var result01 = sampleClass.romanToInt(sampleInput01);
 		System.out.println("Result is " + result01);
