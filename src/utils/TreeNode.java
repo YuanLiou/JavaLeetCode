@@ -1,8 +1,10 @@
 package utils;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class TreeNode {
 	public int val;
@@ -36,7 +38,7 @@ public class TreeNode {
 
 		// generate root node
 		TreeNode treeNode = new TreeNode(inputArray[0]);
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(treeNode);
 
 		int index = 1;
@@ -58,6 +60,18 @@ public class TreeNode {
 			index++;
 		}
 		return treeNode;
+	}
+
+	@Nullable
+	public static TreeNode listToBinaryTree(List<Integer> inputList) {
+		if (inputList == null || inputList.isEmpty()) {
+			return null;
+		}
+		Integer[] inputArray = new Integer[inputList.size()];
+		for (int i = 0; i < inputArray.length; i++) {
+			inputArray[i] = inputList.get(i);
+		}
+		return arrayToBinaryTree(inputArray);
 	}
 
 	public static void printTree(TreeNode node) {
