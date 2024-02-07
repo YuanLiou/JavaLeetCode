@@ -102,4 +102,44 @@ public class NumberConnectedComponentsInUndirectedGraph {
 			}
 		}
 	}
+
+	// My second try
+
+	private int counts = 0;
+
+	public int countComponentsTry2(int n, int[][] edges) {
+		// build adjacencyList
+		List<List<Integer>> adjacencyList = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			adjacencyList.add(new ArrayList<>());
+		}
+
+		for (int[] edge : edges) {
+			adjacencyList.get(edge[0]).add(edge[1]);
+			adjacencyList.get(edge[1]).add(edge[0]);
+		}
+
+		// build up a seen HashSet
+		Set<Integer> seen = new HashSet<>();
+
+		// DFS: walkthrough
+		for (int i = 0; i < n; i++) {
+			walkthrough(i, adjacencyList, i, seen);
+		}
+		return counts;
+	}
+
+	private void walkthrough(int start, List<List<Integer>> adjacencyList, int current, Set<Integer> seen) {
+		if (seen.contains(current)) {
+			return;
+		}
+		seen.add(current);
+		if (start == current) {
+			counts++;
+		}
+
+		for (Integer number : adjacencyList.get(current)) {
+			walkthrough(start, adjacencyList, number, seen);
+		}
+	}
 }
