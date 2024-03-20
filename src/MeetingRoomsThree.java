@@ -3,6 +3,29 @@ import java.util.PriorityQueue;
 
 public class MeetingRoomsThree {
 	public static void main(String[] args) {
+		var sampleClass = new MeetingRoomsThree();
+		int[][] input01 = {
+			{0, 10},
+			{1, 5},
+			{2, 7},
+			{3, 4}
+		};
+		int room01 = 2;
+		// expected: 0
+		var result01 = sampleClass.mostBooked(room01, input01);
+		System.out.println("Result 01 is " + result01);
+
+		int[][] input02 = {
+			{1, 20},
+			{2, 10},
+			{3, 5},
+			{4, 9},
+			{6, 8}
+		};
+		int room02 = 3;
+		// expected: 1
+		var result02 = sampleClass.mostBooked(room02, input02);
+		System.out.println("Result 02 is " + result02);
 	}
 
 	private record MeetingEnd(int endTime, int roomIndex) {}
